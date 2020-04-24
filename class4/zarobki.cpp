@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 float getPositiveNumber()
@@ -53,10 +54,10 @@ float calculateWeeklyPayment(float workedHours, float hourlyRate)
 
 float calculateAnnualPayment(float weeklyPayment)
 {
-    // DAYS_IN_YEAR ->  366;
-    // FREE_DAYS    ->  113;
+    // DAYS_IN_YEAR     ->  366;
+    // ALL_FREE_DAYS    ->  113;
     const int WORKING_DAYS_IN_YEAR = 366 - 113;
-    int weeks = WORKING_DAYS_IN_YEAR / 5;
+    float weeks = WORKING_DAYS_IN_YEAR / 5.0;
 
     return weeks * weeklyPayment;
 }
@@ -83,6 +84,7 @@ float calculateIncome(float taxRate, float annualPayment)
 
 int main()
 {
+    cout << setprecision(2) << fixed;
     cout << "\n=========================================" << endl;
     cout << "| This program will calculate: " << endl;
     cout << "| - Weekly earnings" << endl;
