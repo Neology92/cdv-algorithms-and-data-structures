@@ -20,53 +20,53 @@ float getPositiveNumber()
 
 int get1Or2()
 {
-    int answer = -1;
+    int ODP = -1;
 
-    while (answer != 1 && answer != 2)
+    while (ODP != 1 && ODP != 2)
     {
-        cin >> answer;
-        if (answer != 1 && answer != 2)
+        cin >> ODP;
+        if (ODP != 1 && ODP != 2)
         {
             cout << "Enter 1 or 2. Try again: ";
         }
     }
 
-    return answer;
+    return ODP;
 }
 
-float calculateWeeklyPayment(float workedHours, float hourlyRate)
+float calculateWeeklyPayment(float LG, float SG)
 {
-    const short FULL_TIME_HOURS = 40;
+    const short ETAT = 40;
     float payment = 0;
 
-    if (workedHours <= FULL_TIME_HOURS)
+    if (LG <= ETAT)
     {
-        payment = workedHours * hourlyRate;
+        payment = LG * SG;
     }
     else
     {
-        payment = FULL_TIME_HOURS * hourlyRate;
-        payment += (workedHours - FULL_TIME_HOURS) * (hourlyRate * 2);
+        payment = ETAT * SG;
+        payment += (LG - ETAT) * (SG * 2);
     }
 
     return payment;
 }
 
-float calculateAnnualPayment(float weeklyPayment)
+float calculateAnnualPayment(float PL)
 {
     // DAYS_IN_YEAR     ->  366;
     // ALL_FREE_DAYS    ->  113;
     const int WORKING_DAYS_IN_YEAR = 366 - 113;
-    float weeks = WORKING_DAYS_IN_YEAR / 5.0;
+    float TYG = WORKING_DAYS_IN_YEAR / 5.0;
 
-    return weeks * weeklyPayment;
+    return TYG * PL;
 }
 
-float getTaxRate(float annualPayment)
+float getTaxRate(float WR)
 {
-    if (annualPayment <= 20000)
+    if (WR <= 20000)
         return 0.19;
-    else if (annualPayment <= 30000)
+    else if (WR <= 30000)
         return 0.21;
     else
         return 0.28;
@@ -91,34 +91,34 @@ int main()
     cout << "| - If You want to: Annual earnings, tax and income." << endl;
     cout << "-----------------------------------------" << endl;
     cout << "| Enter number of hours worked in week: ";
-    float workedHours = getPositiveNumber();
+    float LG = getPositiveNumber();
     cout << "| Enter Your hourly rate: ";
-    float hourlyRate = getPositiveNumber();
+    float SG = getPositiveNumber();
 
-    float weeklyPayment = calculateWeeklyPayment(workedHours, hourlyRate);
+    float PL = calculateWeeklyPayment(LG, SG);
 
     cout << "-    -    -    -    -    -    -    -    -" << endl;
-    cout << "| Hours worked in week: " << workedHours << endl;
-    cout << "| Payment:              " << weeklyPayment << " PLN " << endl;
+    cout << "| Hours worked in week: " << LG << endl;
+    cout << "| Payment:              " << PL << " PLN " << endl;
     cout << "-----------------------------------------" << endl;
     cout << "| Do You want me to calculate your annual earnings, tax and income?" << endl;
     cout << "| Calculations will be based on your weekly earnings (including extra hours)." << endl;
     cout << "| 1 - Yes" << endl;
     cout << "| 2 - No" << endl;
     cout << "| Your answer: ";
-    int answer = get1Or2();
+    int ODP = get1Or2();
 
-    if (answer == 1)
+    if (ODP == 1)
     {
-        float annualPayment = calculateAnnualPayment(weeklyPayment);
-        float taxRate = getTaxRate(annualPayment);
-        float tax = calculateTax(taxRate, annualPayment);
-        float income = calculateIncome(taxRate, annualPayment);
+        float WR = calculateAnnualPayment(PL);
+        float SP = getTaxRate(WR);
+        float PODATEK = calculateTax(SP, WR);
+        float DOCHOD = calculateIncome(SP, WR);
         cout << "-    -    -    -    -    -    -    -    -" << endl;
-        cout << "| Annual payment: " << annualPayment << " PLN" << endl;
-        cout << "| Tax rate:       " << taxRate * 100 << "%" << endl;
-        cout << "| Tax:            " << tax << " PLN" << endl;
-        cout << "| Annual income:  " << income << " PLN" << endl;
+        cout << "| Annual payment: " << WR << " PLN" << endl;
+        cout << "| Tax rate:       " << SP * 100 << "%" << endl;
+        cout << "| Tax:            " << PODATEK << " PLN" << endl;
+        cout << "| Annual income:  " << DOCHOD << " PLN" << endl;
     }
     cout << "-----------------------------------------" << endl;
     cout << "| Thank You for using this application!" << endl;
