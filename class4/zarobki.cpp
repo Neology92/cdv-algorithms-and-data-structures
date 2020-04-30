@@ -37,19 +37,19 @@ int get1Or2()
 float calculateWeeklyPayment(float LG, float SG)
 {
     const short ETAT = 40;
-    float payment = 0;
+    float PL = 0;
 
     if (LG <= ETAT)
     {
-        payment = LG * SG;
+        PL = LG * SG;
     }
     else
     {
-        payment = ETAT * SG;
-        payment += (LG - ETAT) * (SG * 2);
+        PL = ETAT * SG;
+        PL += (LG - ETAT) * (SG * 2);
     }
 
-    return payment;
+    return PL;
 }
 
 float calculateAnnualPayment(float PL)
@@ -65,21 +65,40 @@ float calculateAnnualPayment(float PL)
 float getTaxRate(float WR)
 {
     if (WR <= 20000)
-        return 0.19;
+        return 19;
     else if (WR <= 30000)
-        return 0.21;
+        return 21;
     else
-        return 0.28;
+        return 28;
 };
 
-float calculateTax(float taxRate, float annualPayment)
+float calculateTax(float SP, float WR)
 {
-    return taxRate * annualPayment;
+    float PODATEK = 0;
+
+    if (SP == 19)
+    {
+
+        PODATEK = WR * 0.19;
+    }
+    else if (SP == 21)
+    {
+        PODATEK = 20000 * 0.19;
+        PODATEK += (WR - 20000) * 0.21;
+    }
+    else
+    {
+        PODATEK = 20000 * 0.19;
+        PODATEK += 10000 * 0.21;
+        PODATEK += (WR - 30000) * 0.28;
+    }
+
+    return PODATEK;
 }
 
-float calculateIncome(float taxRate, float annualPayment)
+float calculateIncome(float WR, float PODATEK)
 {
-    return annualPayment * (1 - taxRate);
+    return (WR - PODATEK);
 }
 
 int main()
@@ -113,10 +132,10 @@ int main()
         float WR = calculateAnnualPayment(PL);
         float SP = getTaxRate(WR);
         float PODATEK = calculateTax(SP, WR);
-        float DOCHOD = calculateIncome(SP, WR);
+        float DOCHOD = calculateIncome(WR, PODATEK);
         cout << "-    -    -    -    -    -    -    -    -" << endl;
         cout << "| Annual payment: " << WR << " PLN" << endl;
-        cout << "| Tax rate:       " << SP * 100 << "%" << endl;
+        cout << "| Tax rate:       " << SP << "%" << endl;
         cout << "| Tax:            " << PODATEK << " PLN" << endl;
         cout << "| Annual income:  " << DOCHOD << " PLN" << endl;
     }
